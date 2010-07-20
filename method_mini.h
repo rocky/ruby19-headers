@@ -42,7 +42,11 @@ typedef enum {
 
 typedef struct rb_method_cfunc_struct {
     VALUE (*func)(ANYARGS);
-    int argc;
+    int argc; /* This should probably be called "arity" since it is based
+		 on the static prototype, not the supplied arguments
+		 at runtime. */
+    int actual_argc; /* This probably should be called argc. It is the
+			argument count at runtime.*/
 } rb_method_cfunc_t;
 
 typedef struct rb_method_attr_struct {

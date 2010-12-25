@@ -82,6 +82,8 @@ typedef struct rb_compile_option_struct {
     int instructions_unification;
     int stack_caching;
     int trace_instruction;
+    int save_tree_node;
+    int save_compile_opts;
     int debug_level;
 } rb_compile_option_t;
 
@@ -134,7 +136,7 @@ typedef struct rb_iseq_struct {
      *  arg_block      = M+N + 1 + O + 1 // -1 if no block arg
      *  arg_simple     = 0 if not simple arguments.
      *                 = 1 if no opt, rest, post, block.
-     *                 = 2 if ambiguos block parameter ({|a|}).
+     *                 = 2 if ambiguous block parameter ({|a|}).
      *  arg_size       = argument size.
      */
 
@@ -184,6 +186,16 @@ typedef struct rb_iseq_struct {
     struct iseq_compile_data *compile_data;
     /* Used to set a breakpoint at a VM instruction */
     unsigned char *breakpoints; 
+
+    /* If this instruction sequence came from eval, the string of the
+       source as a String. */
+    VALUE source;
+
+    /* If we are saving tree nodes (a compile option), then tree_node
+       is the internal parse tree node representation for this
+       instruction sequence.
+    */
+    NODE *tree_node;
 } rb_iseq_t;
 
 enum ruby_special_exceptions {

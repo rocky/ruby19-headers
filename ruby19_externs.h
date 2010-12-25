@@ -21,7 +21,7 @@ extern VALUE rb_binding_frame_new(void *vth, void *vcfp);  /* new */
 
 
 /* From thread.c */
-extern rb_control_frame_t * thread_control_frame(void *); /* new */
+extern rb_control_frame_t * thread_context_frame(void *); /* new */
 extern VALUE rb_cThread;  /* Thread class */
 
 
